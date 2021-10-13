@@ -1,4 +1,11 @@
-* {
+.App {
   margin: 0;
   padding: 0;
+  background-image: url("./images/gmail_bg.jpg");
+  background-position: fixed;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  min-height: fit-content;
+  min-width: fit-content;
 }

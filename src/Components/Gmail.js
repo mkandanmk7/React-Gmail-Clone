@@ -1,9 +1,10 @@
 import React from "react";
+import Header from "./Header";
 
 function Gmail() {
   return (
     <div className="gmail">
-      <h2>Hello from gmail</h2>
+      <Header />
     </div>
   );
 }
