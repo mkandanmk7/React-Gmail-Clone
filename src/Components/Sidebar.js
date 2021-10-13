@@ -22,9 +22,9 @@ function Sidebar() {
         <div className="sidebarTopIcons">
           <StarOutlined />
         </div>
-        <div className="sidebarTopIcons">
+        {/* <div className="sidebarTopIcons">
           <WatchLaterIcon />
-        </div>
+        </div> */}
         <div className="sidebarTopIcons"></div>
         <div className="sidebarTopIcons"></div>
         <div className="sidebarTopIcons"></div>
