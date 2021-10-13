@@ -49,6 +49,9 @@
   display: flex;
   align-items: center;
 }
+.header_right_icons {
+  display: flex;
+}
 .header_right_icons > .MuiSvgIcon-root {
   color: rgba(47, 48, 48, 0.8);
   font-size: x-large;
