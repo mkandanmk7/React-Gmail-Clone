@@ -22,48 +22,50 @@ function Sidebar() {
             alt="plus icon"
           />
         </div>
-        <div className="sidebarTopIcons">
+        <div className="sidebarIcons">
           <InboxOutlinedIcon />
         </div>
-        <div className="sidebarTopIcons">
+        <div className="sidebarIcons">
           <StarOutlined />
         </div>
-        <div className="sidebarTopIcons">
+        <div className="sidebarIcons">
           <WatchLaterIcon />
         </div>
-        <div className="sidebarTopIcons">
+        <div className="sidebarIcons">
           <SendIcon />
         </div>
-        <div className="sidebarTopIcons">
+        <div className="sidebarIcons">
           <InsertDriveFileIcon />
         </div>
-        <div className="sidebarTopIcons">
+        <div className="sidebarIcons">
           <LabelImportantSharpIcon />
         </div>
       </div>
       <div className="sidebarBottom">
-        <div className="sidebarOption">
-          <img
-            src="https://www.gstatic.com/images/icons/material/system/1x/meet_black_20dp.png"
-            alt="meetIcon"
-          />
+        <div className="sidebarOptions">
+          <div className="sidebarIcons">
+            <img
+              src="https://www.gstatic.com/images/icons/material/system/1x/meet_black_20dp.png"
+              alt="meetIcon"
+            />
+          </div>
         </div>
-        <div className="sidebarOption">
+        <div className="sidebarIcons">
           <VideocamIcon />
         </div>
-        <div className="sidebarOption">
+        <div className="sidebarIcons">
           <KeyboardIcon />
         </div>
       </div>
       <div className="sidebarLast">
-        <div className="sidebarLastOption">
-          <div className="sidebarOption">
+        <div className="sidebarOptions">
+          <div className="sidebarIcons">
             <img
               src="https://www.gstatic.com/images/icons/material/system/1x/hangout_black_20dp.png"
               alt="hangoutIcon"
             />
           </div>
-          <div className="sidebarAvatar">
+          <div className="sidebarOption">
             <Avatar />
           </div>
         </div>
