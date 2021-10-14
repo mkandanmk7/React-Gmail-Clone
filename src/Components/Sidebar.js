@@ -13,11 +13,13 @@ import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import LabelImportantSharpIcon from "@material-ui/icons/LabelImportantSharp";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
-import { Avatar } from "@material-ui/core";
+import { Avatar, IconButton } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 
 function Sidebar() {
   //states
   const [modalOpen, setModalOpen] = useState(false);
+  const [focus, setFocus] = useState(false);
 
   return (
     <div className="sidebar">
@@ -34,9 +36,39 @@ function Sidebar() {
             isOpen={modalOpen}
             onRequestClose={() => setModalOpen(false)}
             shouldCloseOnOverlayClick={false}
+            style={{
+              overlay: {
+                width: 500,
+                height: "auto",
+                backgroundColor: "rgba(0,0,0,0.6",
+                zIndex: "1000",
+                top: "50%",
+                left: "35%",
+                marginTop: "0px",
+                marginLeft: "-100px",
+              },
+              content: {
+                margin: 0,
+                padding: 0,
+                border: "none",
+              },
+            }}
           >
-            <div className="modal">
-              <h1>Modal Div</h1>
+            <div className="modal_container">
+              <div className="modal_top">
+                <div className="modal_head">
+                  <p>New Message</p>
+                  <div className="modal_head_icons">
+                    {/* onClick={closeModal} */}
+                    <IconButton onClick={() => setModalOpen(false)}>
+                      <Close />
+                    </IconButton>
+                  </div>
+                </div>
+                <div onClick={() => setFocus(true)} className="modal_Recipient">
+                  <p>{focus ? "To" : "Recipient"}</p>
+                </div>
+              </div>
             </div>
           </Modal>
         </div>
