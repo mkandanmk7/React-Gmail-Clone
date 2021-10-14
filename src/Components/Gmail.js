@@ -7,6 +7,7 @@ import Mail from "./Mail";
 
 //styling
 import "./css/Gmail.css";
+import Widget from "./Widget";
 
 function Gmail() {
   return (
@@ -15,6 +16,7 @@ function Gmail() {
       <div className="gmailBody">
         <Sidebar />
         <Mail />
+        <Widget />
       </div>
     </div>
   );

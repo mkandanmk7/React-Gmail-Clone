@@ -3,7 +3,7 @@
   flex-direction: column;
   padding: 5px 10px;
   flex: 0.92;
-  border-right: 2px solid rgba(114, 110, 110, 0.25);
+  border-right: 2px solid rgba(49, 48, 48, 0.7);
 }
 .body_top_container {
   display: flex;
