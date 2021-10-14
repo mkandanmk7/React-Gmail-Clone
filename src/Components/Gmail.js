@@ -3,6 +3,7 @@ import React from "react";
 //components
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import Mail from "./Mail";
 
 //styling
 import "./css/Gmail.css";
@@ -13,6 +14,7 @@ function Gmail() {
       <Header />
       <div className="gmailBody">
         <Sidebar />
+        <Mail />
       </div>
     </div>
   );
