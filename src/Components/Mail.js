@@ -16,6 +16,7 @@ import {
   PeopleAlt,
   Refresh,
 } from "@material-ui/icons";
+import MailCard from "./MailCard";
 
 //icons
 
@@ -61,7 +62,11 @@ function Mail() {
         </div>
       </div>
 
-      <div className="card_container"></div>
+      <div className="Mail_container">
+        <div className="Mail_card_container">
+          <MailCard />
+        </div>
+      </div>
     </div>
   );
 }
