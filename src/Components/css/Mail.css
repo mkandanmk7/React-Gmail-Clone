@@ -14,7 +14,55 @@
   border-bottom: 2px solid rgba(114, 110, 110, 0.25);
   /* background-color: #fff; */
 }
+.body_top > .MuiSvgIcon-root {
+  margin-left: 10px;
+  color: rgba(47, 48, 48, 0.7);
+}
+.body_right {
+  display: flex;
+}
+.body_right > .MuiSvgIcon-root {
+  margin-left: 10px;
+  color: rgba(47, 48, 48, 0.7);
+}
+.checkbox {
+  margin-top: -15px !important;
+}
+
+.body_mid_container {
+  display: flex;
+  background-color: rgba(114, 110, 110, 0.25);
+  border-bottom: 2px solid rgba(49, 48, 48, 0.7);
+}
+
 .mid_options {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.mid_option {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  cursor: pointer;
+  color: rgba(47, 48, 48, 0.8);
+}
+.mid_option > h3 {
+  margin-left: 10px;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.mid_option:hover {
+  background: rgba(82, 85, 85, 0.5);
+  color: #fcfcfc;
+  transition: 0.25s ease;
+}
+.Mail_container {
+  overflow: scroll;
+  -ms-overflow-style: none;
+}
+.Mail_container::-webkit-scrollbar {
+  display: none;
 }
