@@ -3,6 +3,10 @@ import "./css/Sidebar.css";
 
 //packages
 import Modal from "react-modal";
+import ReactQuill from "react-quill";
+
+// M-UI componentz
+import { Avatar, IconButton } from "@material-ui/core";
 
 //icons
 import InboxOutlinedIcon from "@material-ui/icons/InboxOutlined";
@@ -13,13 +17,27 @@ import InsertDriveFileIcon from "@material-ui/icons/InsertDriveFile";
 import LabelImportantSharpIcon from "@material-ui/icons/LabelImportantSharp";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
-import { Avatar, IconButton } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import {
+  AttachFile,
+  Close,
+  Delete,
+  Link,
+  MoreVert,
+  ScreenLockRotation,
+  SentimentDissatisfied,
+  TextFormat,
+} from "@material-ui/icons";
+
+//quill theme
+import "react-quill/dist/quill.snow.css";
 
 function Sidebar() {
   //states
   const [modalOpen, setModalOpen] = useState(false);
   const [focus, setFocus] = useState(false);
+  const [recipient, setRecipient] = useState("");
+  const [subject, setSubject] = useState("");
+  const [content, setContent] = useState("");
 
   return (
     <div className="sidebar">
@@ -55,6 +73,7 @@ function Sidebar() {
             }}
           >
             <div className="modal_container">
+              {/* modal_top */}
               <div className="modal_top">
                 <div className="modal_head">
                   <p>New Message</p>
@@ -65,8 +84,45 @@ function Sidebar() {
                     </IconButton>
                   </div>
                 </div>
+                {/* midd modal */}
                 <div onClick={() => setFocus(true)} className="modal_Recipient">
                   <p>{focus ? "To" : "Recipient"}</p>
+                  <input
+                    value={recipient}
+                    onChange={(event) => setRecipient(event.target.value)}
+                    type="text"
+                  />
+                </div>
+                <div className="modal_Recipient">
+                  <input
+                    value={subject}
+                    onChange={(event) => setSubject(event.target.value)}
+                    type="text"
+                    placeholder="Subject"
+                  />
+                </div>
+                <div className="quill">
+                  <ReactQuill
+                    value={content}
+                    onChange={(value) => setContent(value)}
+                    placeholder="Compose Your mail..."
+                  />
+                </div>
+              </div>
+              {/* bottom modal  */}
+              <div className="modal_bottom_container">
+                <div className="modal_bottom">
+                  {/* onClick={sendMail} */}
+                  <button>Send</button>
+                </div>
+                <TextFormat />
+                <AttachFile />
+                <Link />
+                <SentimentDissatisfied />
+                <ScreenLockRotation />
+                <div className="modal_bottom_last">
+                  <MoreVert />
+                  <Delete />
                 </div>
               </div>
             </div>
