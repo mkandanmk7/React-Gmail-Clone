@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css/Sidebar.css";
+
+//packages
+import Modal from "react-modal";
 
 //icons
 import InboxOutlinedIcon from "@material-ui/icons/InboxOutlined";
@@ -13,14 +16,29 @@ import KeyboardIcon from "@material-ui/icons/Keyboard";
 import { Avatar } from "@material-ui/core";
 
 function Sidebar() {
+  //states
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <div className="sidebar">
       <div className="sidebarTop">
         <div className="sidebarOption">
           <img
+            onClick={() => setModalOpen(true)}
             src="https://www.gstatic.com/images/icons/material/colored_icons/1x/create_32dp.png"
             alt="plus icon"
           />
+
+          {/* modal three props ..  */}
+          <Modal
+            isOpen={modalOpen}
+            onRequestClose={() => setModalOpen(false)}
+            shouldCloseOnOverlayClick={false}
+          >
+            <div className="modal">
+              <h1>Modal Div</h1>
+            </div>
+          </Modal>
         </div>
         <div className="sidebarIcons">
           <InboxOutlinedIcon />
