@@ -77,6 +77,12 @@
   flex: 1;
   padding-top: 10px;
 }
+.modal_head_icons {
+  background: rgba(226, 42, 42, 0.8);
+  border-radius: 5px;
+
+  overflow: hidden;
+}
 .modal_Recipient {
   display: flex;
   width: 95%;

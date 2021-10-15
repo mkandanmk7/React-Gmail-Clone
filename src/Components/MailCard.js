@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+
+//packages
+import Modal from "react-modal";
+import ReactQuill from "react-quill";
 
 // accordion comp
 
@@ -10,15 +14,29 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 //style comp
 import { makeStyles } from "@material-ui/core/styles";
-import { Avatar, Checkbox } from "@material-ui/core";
+import { Avatar, Checkbox, IconButton } from "@material-ui/core";
 
 import "./css/MailCard.css";
+
+// modal comp and icons
+import {
+  AttachFile,
+  Close,
+  Delete,
+  Link,
+  MoreVert,
+  ScreenLockRotation,
+  SentimentDissatisfied,
+  TextFormat,
+} from "@material-ui/icons";
+
+//quill theme
+import "react-quill/dist/quill.snow.css";
 
 //m_ui icons
 import {
   Forward,
   Launch,
-  MoreVert,
   Print,
   Replay,
   Reply,
@@ -32,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
+    marginLeft: "5px",
     fontWeight: theme.typography.fontWeightRegular,
   },
 }));
@@ -39,6 +58,27 @@ const useStyles = makeStyles((theme) => ({
 //accodidion func comp
 function SimpleAccordion() {
   const classes = useStyles();
+
+  //states
+  const [modalOpen, setModalOpen] = useState(false);
+  const [focus, setFocus] = useState(false);
+  const [recipient, setRecipient] = useState("");
+  const [subject, setSubject] = useState("");
+  const [content, setContent] = useState("");
+
+  const [forward, setForward] = useState(false);
+
+  //handle functions
+
+  const handleReply = () => {
+    setModalOpen(true);
+    setForward(false); //while reply dont open forward;
+  };
+
+  const handleForward = () => {
+    setModalOpen(true);
+    setForward(true);
+  };
 
   return (
     <div>
@@ -97,12 +137,98 @@ function SimpleAccordion() {
               <ReplyMails />
               <ForwardMails />
 
+              {/* modal for reply and forward */}
+              <Modal
+                isOpen={modalOpen}
+                onRequestClose={() => setModalOpen(false)}
+                shouldCloseOnOverlayClick={false}
+                style={{
+                  overlay: {
+                    width: 500,
+                    height: 400,
+                    backgroundColor: "rgba(0,0,0,0.6",
+                    zIndex: "1000",
+                    top: "50%",
+                    left: "35%",
+                    marginTop: "-100px",
+                    marginLeft: "-100px",
+                  },
+                  content: {
+                    margin: 0,
+                    padding: 0,
+                    border: "none",
+                  },
+                }}
+              >
+                <div className="modal_container">
+                  {/* modal_top */}
+                  <div className="modal_top">
+                    <div className="modal_head">
+                      <p>{forward ? "Forward" : "Reply"}</p>
+                      <div className="modal_head_icons">
+                        <IconButton onClick={() => setModalOpen(false)}>
+                          <Close />
+                        </IconButton>
+                      </div>
+                    </div>
+                    {/* midd modal */}
+                    <div
+                      onClick={() => setFocus(true)}
+                      className="modal_Recipient"
+                    >
+                      <p>{focus ? "To" : "Recipient"}</p>
+                      <input
+                        value={recipient}
+                        onChange={(event) => setRecipient(event.target.value)}
+                        type="text"
+                      />
+                    </div>
+                    <div className="modal_Recipient">
+                      <input
+                        value={subject}
+                        onChange={(event) => setSubject(event.target.value)}
+                        type="text"
+                        placeholder="Subject"
+                      />
+                    </div>
+                    <div className="quill">
+                      <ReactQuill
+                        value={content}
+                        onChange={(value) => setContent(value)}
+                        placeholder={
+                          forward
+                            ? "Add content then forward mail..."
+                            : "Add reply to this mail..."
+                        }
+                      />
+                    </div>
+                  </div>
+                  {/* bottom modal  */}
+                  <div className="modal_bottom_container">
+                    <div className="modal_bottom">
+                      {/* onClick={sendMail} */}
+                      <button>{forward ? "Forward" : "Reply"}</button>
+
+                      <TextFormat />
+                      <AttachFile />
+                      <Link />
+                      <SentimentDissatisfied />
+                      <ScreenLockRotation />
+                      <div className="modal_bottom_last">
+                        <MoreVert />
+                        <Delete />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Modal>
+
               <div className="mail_reply_links">
-                <div className="mail_reply_link">
+                <div onClick={handleReply} className="mail_reply_link">
                   <Replay />
                   <a href="#">Reply</a>
                 </div>
-                <div className="mail_reply_link">
+                <div onClick={handleForward} className="mail_reply_link">
                   <Forward />
                   <a href="#">Forward</a>
                 </div>
