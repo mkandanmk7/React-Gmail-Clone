@@ -15,7 +15,16 @@ import { Avatar, Checkbox } from "@material-ui/core";
 import "./css/MailCard.css";
 
 //m_ui icons
-import { Launch, More, MoreVert, Print, Reply, Star } from "@material-ui/icons";
+import {
+  Forward,
+  Launch,
+  More,
+  MoreVert,
+  Print,
+  Replay,
+  Reply,
+  Star,
+} from "@material-ui/icons";
 
 // accordion styles
 const useStyles = makeStyles((theme) => ({
@@ -85,8 +94,20 @@ function SimpleAccordion() {
             </div>
             <div className="mail_content">
               <div class="mail_content_Accord">content</div>
+              {/* components ours */}
               <ReplyMails />
               <ForwardMails />
+
+              <div className="mail_reply_links">
+                <div className="mail_reply_link">
+                  <Replay />
+                  <a href="#">Reply</a>
+                </div>
+                <div className="mail_reply_link">
+                  <Forward />
+                  <a href="#">Forward</a>
+                </div>
+              </div>
             </div>
           </div>
         </AccordionDetails>
@@ -95,12 +116,12 @@ function SimpleAccordion() {
   );
 }
 
-// reply mail
+// reply mail component
 const ReplyMails = () => {
   return <h2>Replied To...</h2>;
 };
 
-// forward Mail
+// forward Mail component
 const ForwardMails = () => {
   return <h2>Forwarded to ..</h2>;
 };
