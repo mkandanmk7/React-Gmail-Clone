@@ -84,7 +84,7 @@ function SimpleAccordion() {
               </div>
               <div className="sender_info_date">
                 <div className="sender_date_option">
-                  <small>Time</small>
+                  <small>6.45 PM</small>
                   <Star />
                   <Reply />
                   <MoreVert />

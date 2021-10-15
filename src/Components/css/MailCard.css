@@ -1,3 +1,6 @@
+.MuiSvgIcon-root {
+  color: rgba(63, 62, 62, 0.7);
+}
 .accord_mid {
   display: flex;
   align-items: center;
@@ -16,4 +19,109 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.MuiPaper-root {
+  color: #000 !important;
+  border-bottom: 1px solid #aaa;
+  background-color: rgba(224, 224, 224, 0.8) !important;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .MuiPaper-root {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: rgba(224, 224, 224, 0.8);
+  }
+}
+.accord_details {
+  padding-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  background-color: rgba(253, 253, 253, 0.6);
+  box-shadow: 1px 5px 5px;
+}
+
+.accord_details_top {
+  display: flex;
+  align-items: center;
+}
+.accord_details_top > p {
+  font-weight: 500;
+  margin: 10px 60px;
+}
+.accord_details_topright {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.accord_details_topright > .MuiSvgIcon-root {
+  color: rgba(63, 62, 62, 0.7);
+  margin-right: 20px;
+}
+.accord_info {
+  display: flex;
+  margin-left: 10px;
+}
+.sender_info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.sender_info > h4 {
+  font-size: 1.1rem;
+}
+.sender_info > h4 > small {
+  color: rgb(42, 42, 42);
+  margin-left: 5px;
+  font-weight: normal;
+}
+.sender_info_date {
+  margin-right: 10px;
+  display: flex;
+}
+.sender_date_option {
+  display: flex;
+}
+.sender_date_option > .MuiSvgIcon-root {
+  margin-left: 10px;
+}
+.mail_content {
+  margin: 10px 0 0 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.mail_content_Accord {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  flex: 1;
+}
+.mail_reply_links {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  bottom: 10px;
+}
+.mail_reply_link {
+  display: flex;
+  margin-right: 20px;
+  padding: 10px;
+  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.mail_reply_link > a {
+  text-decoration: none;
+  color: rgba(63, 62, 62, 0.8);
+  font-weight: 500;
+  margin-left: 5px;
+}
+.mail_reply_links :hover {
+  background-color: rgba(224, 224, 224, 0.8);
 }
