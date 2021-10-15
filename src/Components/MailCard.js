@@ -10,12 +10,12 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 //style comp
 import { makeStyles } from "@material-ui/core/styles";
-import { Checkbox } from "@material-ui/core";
+import { Avatar, Checkbox } from "@material-ui/core";
 
 import "./css/MailCard.css";
 
 //m_ui icons
-import { Star } from "@material-ui/icons";
+import { Launch, More, MoreVert, Print, Reply, Star } from "@material-ui/icons";
 
 // accordion styles
 const useStyles = makeStyles((theme) => ({
@@ -56,31 +56,54 @@ function SimpleAccordion() {
             </div>
           </div>
         </AccordionSummary>
+        {/* Expended details */}
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2a-content"
-          id="panel2a-header"
-        >
-          <Typography>Accordion 2</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </Typography>
+          <div className="accord_details">
+            <div className="accord_details_top">
+              <p>Subject</p>
+              <div className="accord_details_topright">
+                <Print />
+                <Launch />
+              </div>
+            </div>
+            <div className="accord_info">
+              <Avatar />
+              <div className="sender_info">
+                <h4>
+                  Sender Name<small>Email</small>
+                </h4>
+                <small>To whom</small>
+              </div>
+              <div className="sender_info_date">
+                <div className="sender_date_option">
+                  <small>Time</small>
+                  <Star />
+                  <Reply />
+                  <MoreVert />
+                </div>
+              </div>
+            </div>
+            <div className="mail_content">
+              <div class="mail_content_Accord">content</div>
+              <ReplyMails />
+              <ForwardMails />
+            </div>
+          </div>
         </AccordionDetails>
       </Accordion>
     </div>
   );
 }
+
+// reply mail
+const ReplyMails = () => {
+  return <h2>Replied To...</h2>;
+};
+
+// forward Mail
+const ForwardMails = () => {
+  return <h2>Forwarded to ..</h2>;
+};
 
 function MailCard() {
   return (
