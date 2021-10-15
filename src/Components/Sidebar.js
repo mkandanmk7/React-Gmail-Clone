@@ -57,12 +57,12 @@ function Sidebar() {
             style={{
               overlay: {
                 width: 500,
-                height: "auto",
+                height: 400,
                 backgroundColor: "rgba(0,0,0,0.6",
                 zIndex: "1000",
                 top: "50%",
                 left: "35%",
-                marginTop: "0px",
+                marginTop: "-100px",
                 marginLeft: "-100px",
               },
               content: {
@@ -78,7 +78,6 @@ function Sidebar() {
                 <div className="modal_head">
                   <p>New Message</p>
                   <div className="modal_head_icons">
-                    {/* onClick={closeModal} */}
                     <IconButton onClick={() => setModalOpen(false)}>
                       <Close />
                     </IconButton>
@@ -114,15 +113,16 @@ function Sidebar() {
                 <div className="modal_bottom">
                   {/* onClick={sendMail} */}
                   <button>Send</button>
-                </div>
-                <TextFormat />
-                <AttachFile />
-                <Link />
-                <SentimentDissatisfied />
-                <ScreenLockRotation />
-                <div className="modal_bottom_last">
-                  <MoreVert />
-                  <Delete />
+
+                  <TextFormat />
+                  <AttachFile />
+                  <Link />
+                  <SentimentDissatisfied />
+                  <ScreenLockRotation />
+                  <div className="modal_bottom_last">
+                    <MoreVert />
+                    <Delete />
+                  </div>
                 </div>
               </div>
             </div>

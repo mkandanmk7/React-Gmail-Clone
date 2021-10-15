@@ -1,6 +1,7 @@
 .App {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   background-image: url("./images/gmail_bg.jpg");
   background-position: fixed;
   background-size: cover;
