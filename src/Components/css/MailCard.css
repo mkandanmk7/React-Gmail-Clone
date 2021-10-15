@@ -1,0 +1,19 @@
+.accord_mid {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.accord_left {
+  display: flex;
+  align-items: center;
+  flex: 0.4;
+}
+
+.accord_left > .MuiSvgIcon-root {
+  margin-left: 5px;
+}
+.accord_mid_center {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

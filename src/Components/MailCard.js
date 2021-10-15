@@ -18,7 +18,6 @@ import "./css/MailCard.css";
 import {
   Forward,
   Launch,
-  More,
   MoreVert,
   Print,
   Replay,
@@ -61,7 +60,7 @@ function SimpleAccordion() {
               <p className={classes.heading}>Click here to see Mail content</p>
             </div>
             <div className="accord_mid_date">
-              <Typography className={classes.heading}>TimeStamp</Typography>
+              <Typography className={classes.heading}>12.00 AM</Typography>
             </div>
           </div>
         </AccordionSummary>
