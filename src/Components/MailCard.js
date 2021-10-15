@@ -2,16 +2,20 @@ import React from "react";
 
 // accordion comp
 
-import Accordion from "@material-ui/core/Accordion";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Accordion from "@material-ui/core/Accordion"; // give smooth expand content
+import AccordionSummary from "@material-ui/core/AccordionSummary"; //shows only before expend content
+import AccordionDetails from "@material-ui/core/AccordionDetails"; // it will show expend content
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 //style comp
 import { makeStyles } from "@material-ui/core/styles";
+import { Checkbox } from "@material-ui/core";
 
 import "./css/MailCard.css";
+
+//m_ui icons
+import { Star } from "@material-ui/icons";
 
 // accordion styles
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +40,21 @@ function SimpleAccordion() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Accordion 1</Typography>
+          {/* content will shown in head accordion */}
+          <div className="accord_mid">
+            <div className="accord_left">
+              <Checkbox />
+              <Star />
+              <Typography className={classes.heading}>UserName</Typography>
+            </div>
+            <div className="accord_mid_center">
+              <Typography className={classes.heading}>Subject</Typography>
+              <p className={classes.heading}>Click here to see Mail content</p>
+            </div>
+            <div className="accord_mid_date">
+              <Typography className={classes.heading}>TimeStamp</Typography>
+            </div>
+          </div>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
