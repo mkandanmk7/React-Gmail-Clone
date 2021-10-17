@@ -53,9 +53,7 @@ function Login() {
               <button type="submit" onClick={handleRegister}>
                 Register
               </button>
-              <button type="submit" onClick={handleSignIn}>
-                Continue Using Google
-              </button>
+              <button onClick={handleSignIn}>Continue Using Google</button>
             </div>
             <p onclick={() => setRegister(false)}>Login?</p>
           </div>

@@ -5,6 +5,9 @@
   height: 100vh;
   width: 100vw;
 }
+input::placeholder {
+  color: rgb(224, 219, 219);
+}
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .loginContainer {
     -webkit-backdrop-filter: blur(5px);
