@@ -24,8 +24,19 @@ function Login() {
     }
   };
 
-  const handleLogin = () => {
-    alert("You Logged In");
+  const handleLogin = (event) => {
+    event.preventDefault();
+
+    if (email && password) {
+      auth
+        .signInWithEmailAndPassword(email, password)
+        .then((auth) => {
+          alert("Signed in Successfully");
+        })
+        .catch((err) => alert(err.message));
+    } else {
+      alert("Email Id or password incorrect");
+    }
   };
 
   const handleSignIn = () => {
