@@ -9,6 +9,7 @@ function Login() {
 
   //handle ( )
 
+  //Register Auth
   const handleRegister = (event) => {
     event.preventDefault();
     //createUser with data
@@ -24,6 +25,7 @@ function Login() {
     }
   };
 
+  //Login auth
   const handleLogin = (event) => {
     event.preventDefault();
 
@@ -39,8 +41,14 @@ function Login() {
     }
   };
 
-  const handleSignIn = () => {
-    alert("You signed In");
+  // using google acc auth
+  const handleSignIn = (event) => {
+    event.preventDefault();
+
+    auth
+      .signInWithPopup(provider)
+      .then((auth) => alert("Signed successfully"))
+      .catch((err) => alert(err.message));
   };
 
   // Form page will render based on register (true or false);
