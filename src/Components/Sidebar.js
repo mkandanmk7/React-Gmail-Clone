@@ -30,6 +30,8 @@ import {
 
 //quill theme
 import "react-quill/dist/quill.snow.css";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
 
 function Sidebar() {
   //states
@@ -38,6 +40,9 @@ function Sidebar() {
   const [recipient, setRecipient] = useState("");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
+
+  // user photo detail state
+  const user = useSelector(selectUser);
 
   return (
     <div className="sidebar">
@@ -172,7 +177,7 @@ function Sidebar() {
             />
           </div>
           <div className="sidebarOption">
-            <Avatar />
+            <Avatar src={user.photo} />
           </div>
         </div>
       </div>

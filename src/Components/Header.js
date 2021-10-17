@@ -10,8 +10,13 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import HelpOutlinedIcon from "@material-ui/icons/HelpOutlineOutlined";
 import SettingsOutlinedIcon from "@material-ui/icons/SettingsOutlined";
 import DialpadOutlined from "@material-ui/icons/DialpadOutlined";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
+import { auth } from "../firebase";
 
 function Header() {
+  const user = useSelector(selectUser);
+  console.log(user);
   return (
     <div className="Header">
       <div className="header_left">
@@ -35,7 +40,7 @@ function Header() {
           <DialpadOutlined />
         </div>
         <div className="header_avatar" style={{ cursor: "pointer" }}>
-          <Avatar />
+          <Avatar onClick={() => auth.signOut()} src={user.photo} />
         </div>
       </div>
     </div>
