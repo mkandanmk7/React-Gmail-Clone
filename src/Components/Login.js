@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./css/Login.css";
+// import { auth, provider } from "../firebase";
 
 function Login() {
   //states
-  const [register, setRegister] = useState(false);
   const [email, setEmail] = useState(""); // input email
   const [password, setPassword] = useState(""); //input password
 
@@ -20,6 +20,9 @@ function Login() {
   const handleSignIn = () => {
     alert("You signed In");
   };
+
+  // Form page will render based on register (true or false);
+  const [register, setRegister] = useState(false);
 
   return (
     <div className="login">
@@ -55,7 +58,7 @@ function Login() {
               </button>
               <button onClick={handleSignIn}>Continue Using Google</button>
             </div>
-            <p onclick={() => setRegister(false)}>Login?</p>
+            <p onClick={() => setRegister(false)}>Login?</p>
           </div>
         </>
       ) : (
@@ -83,13 +86,13 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 type="password"
+                required={true}
               />
+
               <button type="submit" onClick={handleLogin}>
                 Login
               </button>
-              <button type="submit" onClick={handleSignIn}>
-                Continue Using Google
-              </button>
+              <button onClick={handleSignIn}>Continue using Google</button>
             </div>
             <p onClick={() => setRegister(true)}>Register?</p>
           </div>
