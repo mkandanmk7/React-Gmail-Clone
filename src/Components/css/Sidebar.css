@@ -38,12 +38,13 @@
   padding: 3.5px;
   color: rgba(47, 48, 48, 0.7);
   font-size: 20px;
+  height: 23px;
+  width: 23px;
 }
 .sidebarIcons > .MuiSvgIcon-root:hover {
   border-radius: 50%;
   transition: 0.25s ease-in-out;
-  height: 27px;
-  width: 27px;
+
   color: #fff;
   background-color: rgba(114, 110, 110, 0.25);
 }

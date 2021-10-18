@@ -4,6 +4,7 @@ import "./css/Sidebar.css";
 //packages
 import Modal from "react-modal";
 import ReactQuill from "react-quill";
+import firebase from "firebase";
 
 // M-UI componentz
 import { Avatar, IconButton } from "@material-ui/core";
@@ -32,6 +33,7 @@ import {
 import "react-quill/dist/quill.snow.css";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
+import db from "../firebase";
 
 function Sidebar() {
   //states
@@ -41,8 +43,34 @@ function Sidebar() {
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
 
-  // user photo detail state
+  // user detail state
   const user = useSelector(selectUser);
+
+  // send Mail data to the fireStore db;
+  const sendMail = (event) => {
+    event.preventDefault();
+
+    //create collection and add  user's sent mail data
+    if (recipient && subject !== "") {
+      db.collection("sentMails").add({
+        from: user.email,
+        to: recipient,
+        subject: subject,
+        content: content,
+        user: user,
+        sent: true,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(), // returns real time.
+      });
+      setModalOpen(false); //close modal
+      console.log("Message Sent");
+      setSubject(""); //empty
+      setRecipient("");
+      setContent("");
+      alert("Mail sent Successfully");
+    } else {
+      alert("Fill all the required Fields");
+    }
+  };
 
   return (
     <div className="sidebar">
@@ -116,8 +144,9 @@ function Sidebar() {
               {/* bottom modal  */}
               <div className="modal_bottom_container">
                 <div className="modal_bottom">
-                  {/* onClick={sendMail} */}
-                  <button>Send</button>
+                  <button onClick={sendMail} type="submit">
+                    Send
+                  </button>
 
                   <TextFormat />
                   <AttachFile />
