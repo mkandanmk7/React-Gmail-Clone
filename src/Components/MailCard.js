@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 //packages
 import Modal from "react-modal";
+import firebase from "firebase";
 import { useSelector, useDispatch } from "react-redux";
 import ReactQuill from "react-quill";
 import ReactHtmlParser from "react-html-parser";
@@ -9,6 +10,7 @@ import ReactHtmlParser from "react-html-parser";
 //file comp:
 import { selectUser } from "../features/userSlice";
 import { selectMailId, setMailId } from "../features/mailSlice";
+import db from "../firebase";
 
 // accordion comp
 import Accordion from "@material-ui/core/Accordion"; // give smooth expand content
@@ -47,7 +49,6 @@ import {
   Reply,
   Star,
 } from "@material-ui/icons";
-import db from "../firebase";
 
 // accordion styles
 const useStyles = makeStyles((theme) => ({
@@ -94,15 +95,34 @@ function SimpleAccordion({ key, Id, mail }) {
   };
 
   //send Mail ()
-  const sendMail = (e, id) => {
+  const sendMail = (id) => {
     forward ? addForward(id) : addReply(id);
   };
 
   const addForward = () => {
     alert("Hello from forward");
   };
-  const addReply = () => {
-    alert("hello from Reply");
+  const addReply = (id) => {
+    console.log(id);
+    if (id.mailId) {
+      console.log(id.mailId);
+      db.collection("sentMails")
+        .doc(id.mailId)
+        .collection("repliedMails")
+        .add({
+          from: user.email,
+          to: recipient,
+          subject: `re<${subject}>`,
+          timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+          content: content,
+          replied: true,
+          id: id,
+          user: user,
+        });
+      alert("Replied Successfully");
+      setModalOpen(false);
+      setContent("");
+    }
   };
 
   return (
@@ -257,7 +277,7 @@ function SimpleAccordion({ key, Id, mail }) {
                   <div className="modal_bottom_container">
                     <div className="modal_bottom">
                       {/* onClick={sendMail} */}
-                      <button onClick={(e) => sendMail(mailId)}>
+                      <button onClick={() => sendMail(mailId)}>
                         {forward ? "Forward" : "Reply"}
                       </button>
 
