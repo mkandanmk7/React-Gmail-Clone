@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 //packages
 import Modal from "react-modal";
+import { useSelector } from "react-redux";
 import ReactQuill from "react-quill";
 
+import { selectUser } from "../features/userSlice";
 // accordion comp
 
 import Accordion from "@material-ui/core/Accordion"; // give smooth expand content
@@ -42,6 +44,7 @@ import {
   Reply,
   Star,
 } from "@material-ui/icons";
+import db from "../firebase";
 
 // accordion styles
 const useStyles = makeStyles((theme) => ({
@@ -56,8 +59,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 //accodidion func comp
-function SimpleAccordion() {
+function SimpleAccordion({ key, Id, mail }) {
   const classes = useStyles();
+
+  const user = useSelector(selectUser);
 
   //states
   const [modalOpen, setModalOpen] = useState(false);
@@ -82,7 +87,7 @@ function SimpleAccordion() {
 
   return (
     <div>
-      <Accordion>
+      <Accordion key={key}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -93,7 +98,14 @@ function SimpleAccordion() {
             <div className="accord_left">
               <Checkbox />
               <Star />
-              <Typography className={classes.heading}>UserName</Typography>
+              <Typography className={classes.heading}>
+                {
+                  //check user mail and db mail name
+                  mail.user.email === user.email
+                    ? "me"
+                    : mail.from.toString().split("@")[0].trim()
+                }
+              </Typography>
             </div>
             <div className="accord_mid_center">
               <Typography className={classes.heading}>Subject</Typography>
@@ -251,10 +263,54 @@ const ForwardMails = () => {
   return <h2>Forwarded to ..</h2>;
 };
 
+// mailCard component
+
 function MailCard() {
+  const [mails, setMails] = useState([]); // empty array initaily
+  const [userMails, setUserMails] = useState([]);
+  const [show, setShow] = useState(false); // initially false for not show
+  const user = useSelector(selectUser);
+
+  useEffect(() => {
+    //get mails from fStore
+    db.collection("sentMails")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setMails(
+          snapshot.docs.map((doc) => ({
+            id: doc.id, // unique Id
+            mail: doc.data(), // contails mail details
+          }))
+        )
+      );
+  }, []);
+
+  //
+  useEffect(() => {
+    if (mails.length !== 0) {
+      console.log(mails);
+      mails.map(({ id, mail }) => {
+        if (user.email === mail.to || user.email === mail.from) {
+          // update show state
+          setShow(true);
+          setUserMails(mail);
+        }
+      });
+    }
+  }, [mails, user.email]);
+
   return (
     <div className="mailCards">
-      <SimpleAccordion />
+      {show &&
+        mails.map(({ id, mail }) => {
+          if (user.email === mail.to || user.email === mail.from) {
+            return (
+              <>
+                <SimpleAccordion key={id} Id={id} mail={mail} />
+              </>
+            );
+          }
+        })}
     </div>
   );
 }
