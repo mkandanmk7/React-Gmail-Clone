@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useSelector } from "react-redux";
 import ReactQuill from "react-quill";
+import ReactHtmlParser from "react-html-parser";
 
 import { selectUser } from "../features/userSlice";
 // accordion comp
@@ -125,23 +126,26 @@ function SimpleAccordion({ key, Id, mail }) {
         <AccordionDetails>
           <div className="accord_details">
             <div className="accord_details_top">
-              <p>Subject</p>
+              <p>{mail.subject}</p>
               <div className="accord_details_topright">
                 <Print />
                 <Launch />
               </div>
             </div>
             <div className="accord_info">
-              <Avatar />
+              <Avatar src={mail.user.photo} />
               <div className="sender_info">
                 <h4>
-                  Sender Name<small>Email</small>
+                  {mail.user.displayName}
+                  <small> {mail.from}</small>
                 </h4>
-                <small>To whom</small>
+                <small>{`To ${mail.to === user.email ? "me" : mail.to}`}</small>
               </div>
               <div className="sender_info_date">
                 <div className="sender_date_option">
-                  <small>6.45 PM</small>
+                  <small>
+                    {new Date(mail.timestamp?.toDate()).toLocaleTimeString()}
+                  </small>
                   <Star />
                   <Reply />
                   <MoreVert />
@@ -149,7 +153,9 @@ function SimpleAccordion({ key, Id, mail }) {
               </div>
             </div>
             <div className="mail_content">
-              <div class="mail_content_Accord">content</div>
+              <div class="mail_content_Accord">
+                {ReactHtmlParser(mail.content)}
+              </div>
               {/* components ours */}
               <ReplyMails />
               <ForwardMails />
