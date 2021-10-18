@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 
 //accodidion func comp
 function SimpleAccordion({ key, Id, mail }) {
+  console.log(mail);
   const classes = useStyles();
 
   const user = useSelector(selectUser);
@@ -108,11 +109,15 @@ function SimpleAccordion({ key, Id, mail }) {
               </Typography>
             </div>
             <div className="accord_mid_center">
-              <Typography className={classes.heading}>Subject</Typography>
+              <Typography className={classes.heading}>
+                {mail.subject}
+              </Typography>
               <p className={classes.heading}>Click here to see Mail content</p>
             </div>
             <div className="accord_mid_date">
-              <Typography className={classes.heading}>12.00 AM</Typography>
+              <Typography className={classes.heading}>
+                {new Date(mail.timestamp?.toDate()).toLocaleString()}
+              </Typography>
             </div>
           </div>
         </AccordionSummary>
