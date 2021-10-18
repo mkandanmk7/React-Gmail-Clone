@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 
 //packages
 import Modal from "react-modal";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ReactQuill from "react-quill";
 import ReactHtmlParser from "react-html-parser";
 
+//file comp:
 import { selectUser } from "../features/userSlice";
-// accordion comp
+import { selectMailId, setMailId } from "../features/mailSlice";
 
+// accordion comp
 import Accordion from "@material-ui/core/Accordion"; // give smooth expand content
 import AccordionSummary from "@material-ui/core/AccordionSummary"; //shows only before expend content
 import AccordionDetails from "@material-ui/core/AccordionDetails"; // it will show expend content
@@ -65,6 +67,9 @@ function SimpleAccordion({ key, Id, mail }) {
   const classes = useStyles();
 
   const user = useSelector(selectUser);
+  const mailId = useSelector(selectMailId);
+  const dispatch = useDispatch();
+  console.log(dispatch);
 
   //states
   const [modalOpen, setModalOpen] = useState(false);
@@ -87,9 +92,30 @@ function SimpleAccordion({ key, Id, mail }) {
     setForward(true);
   };
 
+  //send Mail ()
+  const sendMail = (e, id) => {
+    forward ? addForward(id) : addReply(id);
+  };
+
+  const addForward = () => {
+    alert("Hello from forward");
+  };
+  const addReply = () => {
+    alert("hello from Reply");
+  };
+
   return (
     <div>
-      <Accordion key={key}>
+      <Accordion
+        key={key}
+        onClick={() =>
+          dispatch(
+            setMailId({
+              mailId: Id, // unique id gen by firebase
+            })
+          )
+        }
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -230,7 +256,9 @@ function SimpleAccordion({ key, Id, mail }) {
                   <div className="modal_bottom_container">
                     <div className="modal_bottom">
                       {/* onClick={sendMail} */}
-                      <button>{forward ? "Forward" : "Reply"}</button>
+                      <button onClick={(e) => sendMail(mailId)}>
+                        {forward ? "Forward" : "Reply"}
+                      </button>
 
                       <TextFormat />
                       <AttachFile />
