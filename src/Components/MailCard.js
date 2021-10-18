@@ -63,19 +63,20 @@ const useStyles = makeStyles((theme) => ({
 
 //accodidion func comp
 function SimpleAccordion({ key, Id, mail }) {
-  console.log(mail);
+  // console.log(mail); // mail details
   const classes = useStyles();
 
   const user = useSelector(selectUser);
-  const mailId = useSelector(selectMailId);
+  // console.log(user); //user details
+  const mailId = useSelector(selectMailId); //unique mail id
   const dispatch = useDispatch();
-  console.log(dispatch);
+  // console.log(dispatch);
 
   //states
   const [modalOpen, setModalOpen] = useState(false);
   const [focus, setFocus] = useState(false);
-  const [recipient, setRecipient] = useState("");
-  const [subject, setSubject] = useState("");
+  const [recipient, setRecipient] = useState(mail.to);
+  const [subject, setSubject] = useState(mail.subject);
   const [content, setContent] = useState("");
 
   const [forward, setForward] = useState(false);
@@ -327,7 +328,7 @@ function MailCard() {
   //
   useEffect(() => {
     if (mails.length !== 0) {
-      console.log(mails);
+      // console.log(mails); // all the mails details  array[]
       mails.map(({ id, mail }) => {
         if (user.email === mail.to || user.email === mail.from) {
           // update show state
