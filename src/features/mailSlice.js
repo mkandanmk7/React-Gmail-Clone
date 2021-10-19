@@ -12,6 +12,7 @@ export const mailSlice = createSlice({
   reducers: {
     setMailId: (state, action) => {
       state.mailId = action.payload; //load all user data
+      console.log(state);
     },
   },
 });

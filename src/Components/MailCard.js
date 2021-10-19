@@ -124,7 +124,7 @@ function SimpleAccordion({ Id, mail }) {
   useEffect(() => {
     console.log("mouted");
     console.log(mailId);
-    if (mailId) {
+    if (mailId?.mailId) {
       console.log("mounted In");
       db.collection("sentMails")
         .doc(mailId.mailId)
