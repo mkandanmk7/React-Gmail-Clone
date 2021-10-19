@@ -59,6 +59,7 @@ function Login() {
       {register ? (
         <>
           {/* Register div */}
+
           <div className="loginContainer">
             <div className="logo">
               <img
@@ -69,24 +70,26 @@ function Login() {
               <p>Create Account to continue with Gmail</p>
             </div>
             <div className="loginContent">
-              <input
-                value={email}
-                required={true}
-                onChange={(e) => setEmail(e.target.value)}
-                type="text"
-                placeholder="email"
-              />
-              <input
-                required={true}
-                placeholder="password"
-                value={password}
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <button type="submit" onClick={handleRegister}>
-                Register
-              </button>
-              <button onClick={handleSignIn}>Continue Using Google</button>
+              <form>
+                <input
+                  value={email}
+                  required={true}
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  placeholder="email"
+                />
+                <input
+                  required={true}
+                  placeholder="password"
+                  value={password}
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button type="submit" onClick={handleRegister}>
+                  Register
+                </button>
+                <button onClick={handleSignIn}>Continue Using Google</button>
+              </form>
             </div>
             <p onClick={() => setRegister(false)}>Login?</p>
           </div>
@@ -104,25 +107,27 @@ function Login() {
               <p>to continue to Gmail</p>
             </div>
             <div className="loginContent">
-              <input
-                value={email}
-                required={true}
-                type="text"
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Email"
-              />
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-                type="password"
-                required={true}
-              />
+              <form>
+                <input
+                  value={email}
+                  required={true}
+                  type="text"
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email"
+                />
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  type="password"
+                  required={true}
+                />
 
-              <button type="submit" onClick={handleLogin}>
-                Login
-              </button>
-              <button onClick={handleSignIn}>Continue using Google</button>
+                <button type="submit" onClick={handleLogin}>
+                  Login
+                </button>
+                <button onClick={handleSignIn}>Continue using Google</button>
+              </form>
             </div>
             <p onClick={() => setRegister(true)}>Register?</p>
           </div>

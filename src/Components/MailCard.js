@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 
 //packages
@@ -58,18 +61,22 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     marginLeft: "5px",
-    fontWeight: theme.typography.fontWeightRegular,
+    fontWeight: "bold",
+    // fontWeight: theme.typography.fontWeightRegular,
   },
 }));
 
 //accodidion func comp
-function SimpleAccordion({ key, Id, mail }) {
+function SimpleAccordion({ Id, mail }) {
+  console.log(Id);
+
   // console.log(mail); // mail details
   const classes = useStyles();
 
   const user = useSelector(selectUser);
   // console.log(user); //user details
   const mailId = useSelector(selectMailId); //unique mail id
+  console.log(mailId);
   const dispatch = useDispatch();
   // console.log(dispatch);
 
@@ -81,31 +88,89 @@ function SimpleAccordion({ key, Id, mail }) {
   const [content, setContent] = useState("");
 
   const [forward, setForward] = useState(false);
+  const [repliedMails, setRepliedMails] = useState([]);
+  const [forwardedMails, setForwardedMails] = useState([]);
 
+  const [replied, setReplied] = useState(false);
+  const [forwarded, setForwarded] = useState(false);
   //handle functions
-
-  const handleReply = () => {
-    setModalOpen(true);
-    setForward(false); //while reply dont open forward;
-  };
-
-  const handleForward = () => {
-    setModalOpen(true);
-    setForward(true);
-  };
 
   //send Mail ()
   const sendMail = (id) => {
     forward ? addForward(id) : addReply(id);
   };
 
-  const addForward = () => {
-    alert("Hello from forward");
-  };
-  const addReply = (id) => {
-    console.log(id);
+  //forward mails()
+  useEffect(() => {
+    if (mailId?.mailId) {
+      db.collection("sentMails")
+        .doc(mailId.mailId)
+        .collection("forwardedMails")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) =>
+          setForwardedMails(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              fwdMail: doc.data(),
+            }))
+          )
+        );
+
+      setForwarded(true);
+    }
+  }, [mailId]);
+
+  //render the reply using useeffect
+  useEffect(() => {
+    console.log("mouted");
+    console.log(mailId);
+    if (mailId) {
+      console.log("mounted In");
+      db.collection("sentMails")
+        .doc(mailId.mailId)
+        .collection("repliedMails")
+        .orderBy("timestamp", "desc")
+        .onSnapshot((snapshot) =>
+          setRepliedMails(
+            snapshot.docs.map((doc) => ({
+              id: doc.id,
+              reMail: doc.data(),
+            }))
+          )
+        );
+      console.log(repliedMails);
+      setReplied(true);
+    }
+  }, [mailId]);
+
+  // forward ()
+  const addForward = (id) => {
     if (id.mailId) {
       console.log(id.mailId);
+      db.collection("sentMails")
+        .doc(id.mailId)
+        .collection("forwardedMails")
+        .add({
+          from: user.email,
+          to: recipient,
+          subject: `fwd<${subject}>`,
+          timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+          content: content,
+          forwarded: true,
+          id: id,
+          user: user,
+        });
+      alert("Mail forwarded Successfully");
+      setModalOpen(false);
+      setContent("");
+    }
+  };
+
+  //reply ()
+  const addReply = (id) => {
+    console.log(id); //unique Id
+    if (id.mailId) {
+      // console.log(id.mailId);
       db.collection("sentMails")
         .doc(id.mailId)
         .collection("repliedMails")
@@ -124,11 +189,21 @@ function SimpleAccordion({ key, Id, mail }) {
       setContent("");
     }
   };
+  const handleReply = () => {
+    setModalOpen(true);
+    console.log(replied);
+    setForward(false); //while reply dont open forward;
+  };
+
+  const handleForward = () => {
+    setModalOpen(true);
+    setForward(true);
+  };
 
   return (
     <div>
       <Accordion
-        key={key}
+        key={Id}
         onClick={() =>
           dispatch(
             setMailId({
@@ -171,7 +246,7 @@ function SimpleAccordion({ key, Id, mail }) {
         </AccordionSummary>
         {/* Expended details */}
         <AccordionDetails>
-          <div className="accord_details">
+          <div className="accord_details" key={Id}>
             <div className="accord_details_top">
               <p>{mail.subject}</p>
               <div className="accord_details_topright">
@@ -200,16 +275,17 @@ function SimpleAccordion({ key, Id, mail }) {
               </div>
             </div>
             <div className="mail_content">
-              <div class="mail_content_Accord">
+              <div className="mail_content_Accord">
                 {ReactHtmlParser(mail.content)}
               </div>
               {/* components ours */}
-              <ReplyMails />
-              <ForwardMails />
+              {/* <ReplyMails />
+              <ForwardMails /> */}
 
               {/* modal for reply and forward */}
               <Modal
                 isOpen={modalOpen}
+                ariaHideApp={false}
                 onRequestClose={() => setModalOpen(false)}
                 shouldCloseOnOverlayClick={false}
                 style={{
@@ -295,6 +371,15 @@ function SimpleAccordion({ key, Id, mail }) {
                 </div>
               </Modal>
 
+              {/* reply mails and forward mails mapping */}
+              {replied &&
+                repliedMails.map(({ id, reMail }) => (
+                  <ReplyMails key={id} id={id} mail={reMail} />
+                ))}
+              {forwarded &&
+                forwardedMails.map(({ id, fwdMail }) => (
+                  <ForwardMails key={id} id={id} mail={fwdMail} />
+                ))}
               <div className="mail_reply_links">
                 <div onClick={handleReply} className="mail_reply_link">
                   <Replay />
@@ -314,13 +399,107 @@ function SimpleAccordion({ key, Id, mail }) {
 }
 
 // reply mail component
-const ReplyMails = () => {
-  return <h2>Replied To...</h2>;
+const ReplyMails = ({ key, id, mail }) => {
+  console.log(key);
+  console.log("Replied IN");
+  //getUser datails
+  console.log(mail);
+  console.log(id);
+  const user = useSelector(selectUser);
+
+  return (
+    <>
+      <div className="repliedMail">
+        <div className="repliedMailContainer" key={key}>
+          <div className="repliedMailTop">
+            <h5>{`<replied mail>`}</h5>
+          </div>
+
+          <div className="repliedMailMid">
+            <p
+              style={{
+                margin: "0px 10px",
+                paddingBottom: "10px",
+                fontWeight: "500",
+              }}
+            >
+              {mail.subject}
+            </p>
+            <div className="accordDetailsInfo">
+              <Avatar src={mail.user.photo} />
+              <div className="sendersInfo">
+                <h5>
+                  {mail.user.displayName}
+                  <small>{mail.from}</small>
+                </h5>
+                <small>{`To ${mail.to === user.email ? "me" : mail.to}`}</small>
+              </div>
+              <div className="sendersInfoDate">
+                <div className="sendersInfoDateOption">
+                  <small>
+                    {new Date(mail.timestamp?.toDate()).toLocaleString()}
+                  </small>
+                  <Star />
+                  <Reply />
+                  <MoreVert />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mailContent">
+          <div className="mailContentAccord">
+            {ReactHtmlParser(mail.content)}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 // forward Mail component
-const ForwardMails = () => {
-  return <h2>Forwarded to ..</h2>;
+const ForwardMails = ({ key, id, mail }) => {
+  console.log(id);
+  const user = useSelector(selectUser);
+  // console.log(user); // Logged iN user details
+  return (
+    <>
+      <div className="repliedMail">
+        <div className="repliedMailContainer" key={key}>
+          <div className="repliedMailTop">
+            <h5>{`<forwarded mail>`}</h5>
+          </div>
+          <div className="repliedMailMid">
+            <div className="accordDetailsInfo">
+              <Avatar src={mail.user.photo} />
+              <div className="sendersInfo">
+                <h4>
+                  {mail.user.displayName}
+                  <small>{mail.from}</small>
+                </h4>
+                <small>{`To ${mail.to === user.email ? "me" : mail.to}`}</small>
+              </div>
+              <div className="sendersInfoDate">
+                <div className="sendersInfoDateOption">
+                  <small>
+                    {new Date(mail.timestamp?.toDate()).toLocaleString()}
+                  </small>
+                  <Star />
+                  <Reply />
+                  <MoreVert />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mailContent">
+          <div className="mailContentAccord">
+            {ReactHtmlParser(mail.content)}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 // mailCard component
@@ -362,13 +541,11 @@ function MailCard() {
   return (
     <div className="mailCards">
       {show &&
+        // eslint-disable-next-line array-callback-return
         mails.map(({ id, mail }) => {
+          console.log(id);
           if (user.email === mail.to || user.email === mail.from) {
-            return (
-              <>
-                <SimpleAccordion key={id} Id={id} mail={mail} />
-              </>
-            );
+            return <SimpleAccordion key={id} Id={id} mail={mail} />;
           }
         })}
     </div>
