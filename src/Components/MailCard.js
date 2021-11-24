@@ -88,12 +88,12 @@ function SimpleAccordion({ Id, mail }) {
   const [content, setContent] = useState("");
 
   const [forward, setForward] = useState(false);
-  const [repliedMails, setRepliedMails] = useState([]);
-  console.log(repliedMails); //initially empty []
+  // const [repliedMails, setRepliedMails] = useState([]);
+  // console.log(repliedMails); //initially empty []
   const [forwardedMails, setForwardedMails] = useState([]);
-
-  const [replied, setReplied] = useState(false);
-  const [forwarded, setForwarded] = useState(false);
+  console.log(forwardedMails);
+  // const [replied, setReplied] = useState(false);
+  // const [forwarded, setForwarded] = useState(false);
   //handle functions
 
   //send Mail ()
@@ -118,7 +118,7 @@ function SimpleAccordion({ Id, mail }) {
           )
         );
 
-      setForwarded(true);
+      // setForwarded(true);
     }
   }, [mailId]);
 
@@ -147,8 +147,8 @@ function SimpleAccordion({ Id, mail }) {
           //   )
           // )
         );
-      console.log(repliedMails);
-      setReplied(true);
+      // console.log(repliedMails);
+      // setReplied(true);
     }
   }, [mailId]);
 
@@ -381,14 +381,14 @@ function SimpleAccordion({ Id, mail }) {
               </Modal>
 
               {/* reply mails and forward mails mapping */}
-              {replied &&
+              {/* {replied &&
                 repliedMails.map(({ id, reMail }) => (
                   <ReplyMails key={id} id={id} mail={reMail} />
                 ))}
               {forwarded &&
                 forwardedMails.map(({ id, fwdMail }) => (
                   <ForwardMails key={id} id={id} mail={fwdMail} />
-                ))}
+                ))} */}
 
               <div className="mail_reply_links">
                 <div onClick={handleReply} className="mail_reply_link">
@@ -408,109 +408,109 @@ function SimpleAccordion({ Id, mail }) {
   );
 }
 
-// reply mail component
-const ReplyMails = ({ key, id, mail }) => {
-  console.log(key);
-  console.log("Replied IN");
-  //getUser datails
-  console.log(mail);
-  console.log(id);
-  const user = useSelector(selectUser);
+// // reply mail component
+// const ReplyMails = ({ key, id, mail }) => {
+//   console.log(key);
+//   console.log("Replied IN");
+//   //getUser datails
+//   console.log(mail);
+//   console.log(id);
+//   const user = useSelector(selectUser);
 
-  return (
-    <>
-      <div className="repliedMail">
-        <div className="repliedMailContainer" key={key}>
-          <div className="repliedMailTop">
-            <h5>{`<replied mail>`}</h5>
-          </div>
+//   return (
+//     <>
+//       <div className="repliedMail">
+//         <div className="repliedMailContainer" key={key}>
+//           <div className="repliedMailTop">
+//             <h5>{`<replied mail>`}</h5>
+//           </div>
 
-          <div className="repliedMailMid">
-            <p
-              style={{
-                margin: "0px 10px",
-                paddingBottom: "10px",
-                fontWeight: "500",
-              }}
-            >
-              {mail.subject}
-            </p>
-            <div className="accordDetailsInfo">
-              <Avatar src={mail.user.photo} />
-              <div className="sendersInfo">
-                <h5>
-                  {mail.user.displayName}
-                  <small>{mail.from}</small>
-                </h5>
-                <small>{`To ${mail.to === user.email ? "me" : mail.to}`}</small>
-              </div>
-              <div className="sendersInfoDate">
-                <div className="sendersInfoDateOption">
-                  <small>
-                    {new Date(mail.timestamp?.toDate()).toLocaleString()}
-                  </small>
-                  <Star />
-                  <Reply />
-                  <MoreVert />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="mailContent">
-          <div className="mailContentAccord">
-            {ReactHtmlParser(mail.content)}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+//           <div className="repliedMailMid">
+//             <p
+//               style={{
+//                 margin: "0px 10px",
+//                 paddingBottom: "10px",
+//                 fontWeight: "500",
+//               }}
+//             >
+//               {mail.subject}
+//             </p>
+//             <div className="accordDetailsInfo">
+//               <Avatar src={mail.user.photo} />
+//               <div className="sendersInfo">
+//                 <h5>
+//                   {mail.user.displayName}
+//                   <small>{mail.from}</small>
+//                 </h5>
+//                 <small>{`To ${mail.to === user.email ? "me" : mail.to}`}</small>
+//               </div>
+//               <div className="sendersInfoDate">
+//                 <div className="sendersInfoDateOption">
+//                   <small>
+//                     {new Date(mail.timestamp?.toDate()).toLocaleString()}
+//                   </small>
+//                   <Star />
+//                   <Reply />
+//                   <MoreVert />
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//         <div className="mailContent">
+//           <div className="mailContentAccord">
+//             {ReactHtmlParser(mail.content)}
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
 
-// forward Mail component
-const ForwardMails = ({ key, id, mail }) => {
-  console.log(id);
-  const user = useSelector(selectUser);
-  // console.log(user); // Logged iN user details
-  return (
-    <>
-      <div className="repliedMail">
-        <div className="repliedMailContainer" key={key}>
-          <div className="repliedMailTop">
-            <h5>{`<forwarded mail>`}</h5>
-          </div>
-          <div className="repliedMailMid">
-            <div className="accordDetailsInfo">
-              <Avatar src={mail.user.photo} />
-              <div className="sendersInfo">
-                <h4>
-                  {mail.user.displayName}
-                  <small>{mail.from}</small>
-                </h4>
-                <small>{`To ${mail.to === user.email ? "me" : mail.to}`}</small>
-              </div>
-              <div className="sendersInfoDate">
-                <div className="sendersInfoDateOption">
-                  <small>
-                    {new Date(mail.timestamp?.toDate()).toLocaleString()}
-                  </small>
-                  <Star />
-                  <Reply />
-                  <MoreVert />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="mailContent">
-          <div className="mailContentAccord">
-            {ReactHtmlParser(mail.content)}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+// // forward Mail component
+// const ForwardMails = ({ key, id, mail }) => {
+//   console.log(id);
+//   const user = useSelector(selectUser);
+//   // console.log(user); // Logged iN user details
+//   return (
+//     <>
+//       <div className="repliedMail">
+//         <div className="repliedMailContainer" key={key}>
+//           <div className="repliedMailTop">
+//             <h5>{`<forwarded mail>`}</h5>
+//           </div>
+//           <div className="repliedMailMid">
+//             <div className="accordDetailsInfo">
+//               <Avatar src={mail.user.photo} />
+//               <div className="sendersInfo">
+//                 <h4>
+//                   {mail.user.displayName}
+//                   <small>{mail.from}</small>
+//                 </h4>
+//                 <small>{`To ${mail.to === user.email ? "me" : mail.to}`}</small>
+//               </div>
+//               <div className="sendersInfoDate">
+//                 <div className="sendersInfoDateOption">
+//                   <small>
+//                     {new Date(mail.timestamp?.toDate()).toLocaleString()}
+//                   </small>
+//                   <Star />
+//                   <Reply />
+//                   <MoreVert />
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//         <div className="mailContent">
+//           <div className="mailContentAccord">
+//             {ReactHtmlParser(mail.content)}
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
 
 // mailCard component
 
