@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 //accodidion func comp
 function SimpleAccordion({ Id, mail }) {
-  console.log(Id);
+  // console.log(Id); //unique mailId
 
   // console.log(mail); // mail details
   const classes = useStyles();
@@ -76,7 +76,7 @@ function SimpleAccordion({ Id, mail }) {
   const user = useSelector(selectUser);
   // console.log(user); //user details
   const mailId = useSelector(selectMailId); //unique mail id
-  console.log(mailId);
+  // console.log(mailId);  obj contains mailId
   const dispatch = useDispatch();
   // console.log(dispatch);
 
@@ -89,6 +89,7 @@ function SimpleAccordion({ Id, mail }) {
 
   const [forward, setForward] = useState(false);
   const [repliedMails, setRepliedMails] = useState([]);
+  console.log(repliedMails); //initially empty []
   const [forwardedMails, setForwardedMails] = useState([]);
 
   const [replied, setReplied] = useState(false);
@@ -97,6 +98,7 @@ function SimpleAccordion({ Id, mail }) {
 
   //send Mail ()
   const sendMail = (id) => {
+    console.log(id); //unique mail id by fbase
     forward ? addForward(id) : addReply(id);
   };
 
@@ -122,21 +124,28 @@ function SimpleAccordion({ Id, mail }) {
 
   //render the reply using useeffect
   useEffect(() => {
-    console.log("mouted");
     console.log(mailId);
     if (mailId?.mailId) {
-      console.log("mounted In");
+      console.log("mounted Reply In");
       db.collection("sentMails")
         .doc(mailId.mailId)
         .collection("repliedMails")
         .orderBy("timestamp", "desc")
-        .onSnapshot((snapshot) =>
-          setRepliedMails(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              reMail: doc.data(),
-            }))
-          )
+        .onSnapshot(
+          (snapshot) => {
+            console.log("data pushd ");
+            console.log(snapshot);
+            console.log(snapshot.docs);
+          }
+
+          // setRepliedMails(
+          //   snapshot.docs.map((doc) =>
+          //   ({
+          //     id: doc.id,
+          //     reMail: doc.data(),
+          //   })
+          //   )
+          // )
         );
       console.log(repliedMails);
       setReplied(true);
@@ -191,7 +200,7 @@ function SimpleAccordion({ Id, mail }) {
   };
   const handleReply = () => {
     setModalOpen(true);
-    console.log(replied);
+    // console.log(replied); //true
     setForward(false); //while reply dont open forward;
   };
 
@@ -380,6 +389,7 @@ function SimpleAccordion({ Id, mail }) {
                 forwardedMails.map(({ id, fwdMail }) => (
                   <ForwardMails key={id} id={id} mail={fwdMail} />
                 ))}
+
               <div className="mail_reply_links">
                 <div onClick={handleReply} className="mail_reply_link">
                   <Replay />
@@ -510,6 +520,7 @@ function MailCard() {
   const [show, setShow] = useState(false); // initially false for not show
   const user = useSelector(selectUser);
 
+  console.log(userMails);
   useEffect(() => {
     //get mails from fStore
     db.collection("sentMails")

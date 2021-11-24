@@ -1,14 +1,15 @@
 import firebase from "firebase";
 
+// Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCEMb2OQWjYEIT4t0SFeeYCZrZxwYzc6Bg",
-  authDomain: "clone-01-58cee.firebaseapp.com",
-  projectId: "clone-01-58cee",
-  storageBucket: "clone-01-58cee.appspot.com",
-  messagingSenderId: "464031529311",
-  appId: "1:464031529311:web:630a3b94a1599f1aef5eea",
-  measurementId: "G-JJ7GTK77TC",
+  apiKey: "AIzaSyDETd5Uq-qxSjh_I4Zyn9BpLcMIh_XOkGA",
+  authDomain: "react-clone-66a15.firebaseapp.com",
+  projectId: "react-clone-66a15",
+  storageBucket: "react-clone-66a15.appspot.com",
+  messagingSenderId: "141326512480",
+  appId: "1:141326512480:web:c683ddc611bae02cf1ee05",
+  measurementId: "G-1SBHRQ7WZE",
 };
 
 // intialize
