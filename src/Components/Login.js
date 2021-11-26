@@ -128,7 +128,7 @@ function Login() {
             <p onClick={() => setRegister(true)}>Register?</p>
             <div style={{ textAlign: "center", marginTop: "10px" }}>
               <h3>Use This Credentials for test Purpose</h3>
-              <div style={{ color: "white" }}>
+              <div style={{ color: "white", borderTop: "1px solid white" }}>
                 <p>
                   <b>email</b> : test@gmail.com
                 </p>
