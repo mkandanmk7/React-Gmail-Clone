@@ -126,6 +126,18 @@ function Login() {
               <button onClick={handleSignIn}>Continue using Google</button>
             </form>
             <p onClick={() => setRegister(true)}>Register?</p>
+            <div style={{ textAlign: "center", marginTop: "10px" }}>
+              <h3>Use This Credentials for test Purpose</h3>
+              <div style={{ color: "white" }}>
+                <p>
+                  <b>email</b> : test@gmail.com
+                </p>
+                <p>
+                  {" "}
+                  <b>Password</b> : test123
+                </p>
+              </div>
+            </div>
           </div>
         </>
       )}
